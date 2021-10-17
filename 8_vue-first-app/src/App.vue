@@ -1,36 +1,52 @@
 <template>
-  <header><h1>My Friends</h1></header>
-  <friends-contact
-    v-for="friend in friends"
-    :key="friend.id"
-    :name="friend.name"
-    :email-address="friend.emailAddress"
-    :phone-number="friend.phoneNumber"
-    :is-favorite="true"
-  ></friends-contact>
+  <section>
+    <header>
+      <h1>My Friends</h1>
+    </header>
+    <ul>
+      <friends-contact
+        v-for="friend in friends"
+        :key="friend.id"
+        :id="friend.id"
+        :name="friend.name"
+        :phone-number="friend.phone"
+        :email-address="friend.email"
+        :is-favorite="friend.isFavorite"
+        @toggle-favorite="toggleFavoriteStatus"
+      ></friends-contact>
+    </ul>
+  </section>
 </template>
 
 <script>
-import FriendsContact from "./components/FriendsContact.vue";
 export default {
-  components: { FriendsContact },
   data() {
     return {
       friends: [
         {
           id: "manuel",
-          name: "manuel lorenz",
+          name: "Manuel Lorenz",
+          phone: "0123 45678 90",
           email: "manuel@localhost.com",
-          phone: "224-333-2222",
+          isFavorite: true,
         },
         {
           id: "julie",
-          name: "julie lorenz",
+          name: "Julie Jones",
+          phone: "0987 654421 21",
           email: "julie@localhost.com",
-          phone: "224-333-2222",
+          isFavorite: false,
         },
       ],
     };
+  },
+  methods: {
+    toggleFavoriteStatus(friendId) {
+      const identifiedFriend = this.friends.find(
+        (friend) => friend.id === friendId
+      );
+      identifiedFriend.isFavorite = !identifiedFriend.isFavorite;
+    },
   },
 };
 </script>

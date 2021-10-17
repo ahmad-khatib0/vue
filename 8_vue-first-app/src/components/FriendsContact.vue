@@ -1,6 +1,6 @@
 <template>
   <li>
-    <h2>{{ name }} {{ isFavoriteFriend ? "(Favorite)" : "" }}</h2>
+    <h2>{{ name }} {{ isFavorite ? "(Favorite)" : "" }}</h2>
     <button @click="toggleDetails">
       {{ detailsAreVisible ? "Hide" : "Show" }} Details
     </button>
@@ -18,6 +18,10 @@
 export default {
   // props: ["name", "phoneNumber", "emailAddress", "isFavorite"],
   props: {
+    id: {
+      type: String,
+      required: true,
+    },
     name: {
       type: String,
       required: true,
@@ -42,7 +46,6 @@ export default {
   data() {
     return {
       detailsAreVisible: false,
-      isFavoriteFriend: this.isFavorite,
     };
   },
   methods: {
@@ -53,7 +56,12 @@ export default {
       // if (this.isFavorite === "1") this.isFavorite = "0";
       // else this.isFavorite = "1"; //this tow lines of code incorrect ,
       // because props in vue are immutable, so the solution was to assign it to isFavoriteFriend
-      this.isFavoriteFriend = !this.isFavoriteFriend;
+      // this.isFavoriteFriend = !this.isFavoriteFriend;
+      this.$emit("toggle-favorite", this.id);
+
+      // And this allows you to emit your own custom event to which you then can listen
+      // from inside the parent component... note that the name is in kepab-case
+      // and the second arg is the data you wanna to pass it up to the parent
     },
   },
 };
