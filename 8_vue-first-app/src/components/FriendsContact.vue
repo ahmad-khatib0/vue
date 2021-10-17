@@ -1,6 +1,6 @@
 <template>
   <li>
-    <h2>{{ name }} {{ isFavoriteFriend === "1" ? "(Favorite)" : "" }}</h2>
+    <h2>{{ name }} {{ isFavoriteFriend ? "(Favorite)" : "" }}</h2>
     <button @click="toggleDetails">
       {{ detailsAreVisible ? "Hide" : "Show" }} Details
     </button>
@@ -33,7 +33,7 @@ export default {
     isFavorite: {
       type: Boolean,
       required: false,
-      default: "0", //default can be a function
+      default: false, //default can be a function
       // validator: function(value) {
       //   return value === "1" || value === "0";
       // },
@@ -42,13 +42,6 @@ export default {
   data() {
     return {
       detailsAreVisible: false,
-      friend: {
-        id: "manuel",
-        name: "manuel lorenz",
-        email: "manuel@localhost.com",
-        phone: "224-333-2222",
-      },
-
       isFavoriteFriend: this.isFavorite,
     };
   },
@@ -60,9 +53,7 @@ export default {
       // if (this.isFavorite === "1") this.isFavorite = "0";
       // else this.isFavorite = "1"; //this tow lines of code incorrect ,
       // because props in vue are immutable, so the solution was to assign it to isFavoriteFriend
-
-      if (this.isFavoriteFriend === "1") this.isFavoriteFriend = "0";
-      else this.isFavoriteFriend = "1";
+      this.isFavoriteFriend = !this.isFavoriteFriend;
     },
   },
 };
