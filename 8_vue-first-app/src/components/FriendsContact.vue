@@ -11,6 +11,9 @@
       <li><strong>Phone: </strong> {{ phoneNumber }}</li>
       <li><strong>Email: </strong> {{ emailAddress }}</li>
     </ul>
+
+    <button @click="$emit('delete', name)">Delete</button>
+    <!-- alternative way instead of defining a method  -->
   </li>
 </template>
 
@@ -43,6 +46,21 @@ export default {
       // },
     },
   },
+  // In props you will define which props this component receives. In emits, you
+  //  will define which custom events your component will eventually at some point
+  // emit., its not mandatory, but for the purpose of documenting your code
+  // emits: ["toggle-favorite"], //or
+  emits: {
+    "toggle-favorite": function(id) {
+      //  so here means that toggle-favorite is an event handled by function takes an id as arg
+      if (id) return true;
+      else {
+        console.warn("the id is missing");
+        return false;
+      }
+    },
+    delete: "delete",
+  },
   data() {
     return {
       detailsAreVisible: false,
@@ -63,6 +81,8 @@ export default {
       // from inside the parent component... note that the name is in kepab-case
       // and the second arg is the data you wanna to pass it up to the parent
     },
+
+    deleteFriend() {},
   },
 };
 </script>
