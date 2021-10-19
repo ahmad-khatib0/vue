@@ -10,11 +10,12 @@
 
 <script>
 export default {
-  props: ['fullName', 'infoText', 'role'],
+  props: ["fullName", "infoText", "role"],
 };
 </script>
 
-<style>
+<style scoped>
+/* this keyword to lock the style to the current file only  */
 section {
   margin: 2rem auto;
   max-width: 30rem;
