@@ -4,7 +4,7 @@
       :topic-title="activeTopic && activeTopic.title"
       :text="activeTopic && activeTopic.fullText"
     ></active-element>
-    <knowledge-base :topics="topics" @select-topic="activateTopic"></knowledge-base>
+    <knowledge-base @select-topic="activateTopic"></knowledge-base>
   </div>
 </template>
 
@@ -36,6 +36,25 @@ export default {
     activateTopic(topicId) {
       this.activeTopic = this.topics.find((topic) => topic.id === topicId);
     },
+  },
+
+  provide() {
+    //provide is like passing data like props
+    return {
+      topics: this.topics,
+    };
+  },
+
+  mounted() {
+    setTimeout(() => {
+      this.topics.push({
+        id: 'event',
+        title: 'events',
+        description: `this to prove that the pushed data will be reflected
+          in provide and in topics array in data both `,
+        fullText: 'events allows you to trigger code on demand ',
+      });
+    }, 3000);
   },
 };
 </script>
