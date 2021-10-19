@@ -1,11 +1,14 @@
 <template>
   <section>
     <base-card>
-      <header>
+      <template v-slot:header>
+        <!--this tells vue the content of this template will go in slot named header -->
         <h3>{{ fullName }}</h3>
         <base-badge :type="role" :caption="role.toUpperCase()"></base-badge>
-      </header>
-      <p>{{ infoText }}</p>
+      </template>
+      <template v-slot:default>
+        <p>{{ infoText }}</p>
+      </template>
     </base-card>
   </section>
 </template>

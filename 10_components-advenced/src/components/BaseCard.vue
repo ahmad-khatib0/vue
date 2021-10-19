@@ -1,5 +1,9 @@
 <template>
   <div>
+    <header>
+      <slot name="header"></slot>
+      <!-- name is up to you, you can to have just one  unnamed slot -->
+    </header>
     <slot></slot>
   </div>
 </template>
