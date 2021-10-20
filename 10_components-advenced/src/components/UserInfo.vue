@@ -21,9 +21,4 @@ export default {
 
 <style scoped>
 /* this keyword to lock the style to the current file only  */
-section div {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 </style>
