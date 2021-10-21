@@ -2,7 +2,7 @@
   <section>
     <base-card>
       <!-- <template v-slot:header>   or-->
-      <template #:header>
+      <template #header>
         <h2>Available Badges</h2>
       </template>
       <template #default>
