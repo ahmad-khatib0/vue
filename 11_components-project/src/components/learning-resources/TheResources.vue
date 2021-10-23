@@ -50,6 +50,7 @@ export default {
     return {
       resources: this.storedResources,
       addResource: this.addResource,
+      deleteResource: this.removeResource,
     };
   },
   computed: {
@@ -73,6 +74,20 @@ export default {
       };
       this.storedResources.unshift(newResource);
       this.selectedTab = 'stored-resources';
+    },
+
+    removeResource(resId) {
+      // this.storedResources = this.storedResources.filter(
+      //   (res) => res.id !== resId
+      // );
+      //  filter returns new array, so  resources: this.storedResources, in provide
+      // doesn't know about it, so it didn't reflect this change on the screen
+      const resIndex = this.storedResources.findIndex(
+        (res) => res.id === resId
+      );
+      this.storedResources.splice(resIndex, 1); //this manipulate the array ,
+      //  instead of creating new one, so vue will reflect this change on the screen
+      console.log(this.storedResources.length);
     },
   },
 };
