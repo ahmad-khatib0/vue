@@ -11,7 +11,9 @@ const router = createRouter({
   routes: [
     { path: '/teams', component: TeamsList },
     { path: '/users', component: UsersList },
-    { path: '/teams/:teamId', component: TeamMembers },
+    { path: '/teams/:teamId', component: TeamMembers, props: true },
+    // it tells the view router that the dynamic parameters should be passed into
+    //  this component as props rather than just on the $route property.
   ],
   linkActiveClass: 'active', // to replace the router-link-active with this
 });
