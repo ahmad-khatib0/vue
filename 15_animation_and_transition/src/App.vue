@@ -3,6 +3,13 @@
     <div class="block" :class="{ animate: animatedBlock }"></div>
     <button @click="animateBlock">Animate</button>
   </div>
+
+  <div class="container">
+    <transition>
+      <p v-if="paraIsVisible">This is only sometimes visible</p>
+    </transition>
+    <button @click="toggleParagraph">Toggle Paragraph</button>
+  </div>
   <base-modal @close="hideDialog" v-if="dialogIsVisible">
     <p>This is a test dialog!</p>
     <button @click="hideDialog">Close it!</button>
@@ -15,7 +22,11 @@
 <script>
 export default {
   data() {
-    return { dialogIsVisible: false, animatedBlock: false };
+    return {
+      dialogIsVisible: false,
+      animatedBlock: false,
+      paraIsVisible: false,
+    };
   },
   methods: {
     showDialog() {
@@ -26,6 +37,9 @@ export default {
     },
     animateBlock() {
       this.animatedBlock = true;
+    },
+    toggleParagraph() {
+      this.paraIsVisible = !this.paraIsVisible;
     },
   },
 };
@@ -77,6 +91,31 @@ button:active {
   /* transform: translateX(-50px); */
   animation: slide-fade 0.4s ease-out forwards;
   /* forwards is for preventing the last stage of the animation from going back  */
+}
+
+.v-enter-from {
+  transform: translateY(-30px);
+  opacity: 0;
+}
+.v-enter-active {
+  transition: all 0.4s ease-out;
+}
+.v-enter-to {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.v-leave-from {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.v-leave-active {
+  transition: all 0.4s ease-in;
+}
+.v-leave-to {
+  transform: translateY(30px);
+  opacity: 0;
 }
 
 @keyframes slide-fade {
