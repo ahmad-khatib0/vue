@@ -4,7 +4,7 @@
     <button @click="animateBlock">Animate</button>
   </div>
 
-  <div class="container">
+  <!-- <div class="container">
     <transition
       name="paragraph"
       @before-enter="beforeEnter"
@@ -13,12 +13,34 @@
       @before-leave="beforeLeave"
       @leave="leave"
       @after-leave="afterLeave"
+    > -->
+  <!-- or you can to override the entire names, not just the prefix   -->
+  <!-- <transition enter-to-class="other-name" enter-active-class="other-name"> -->
+  <!-- <p v-if="paraIsVisible">This is only sometimes visible</p>
+    </transition>
+    <button @click="toggleParagraph">
+      Toggle Paragraph (Manipulated with css)
+    </button>
+  </div> -->
+
+  <div class="container">
+    <!-- set it to false can improve performance a little bit if we don't relay on css -->
+    <transition
+      :css="false"
+      @before-enter="beforeEnter"
+      @enter="enterActive"
+      @after-enter="afterEnter"
+      @before-leave="beforeLeave"
+      @leave="leave"
+      @after-leave="afterLeave"
+      @enter-cancelled="enterCanceled"
+      @leave-cancelled="leaveCanceled"
     >
-      <!-- or you can to override the entire names, not just the prefix   -->
-      <!-- <transition enter-to-class="other-name" enter-active-class="other-name"> -->
       <p v-if="paraIsVisible">This is only sometimes visible</p>
     </transition>
-    <button @click="toggleParagraph">Toggle Paragraph</button>
+    <button @click="toggleParagraph">
+      Toggle Paragraph (Manipulated with js)
+    </button>
   </div>
 
   <div class="container">
@@ -46,16 +68,32 @@ export default {
       animatedBlock: false,
       paraIsVisible: false,
       usersAreVisible: false,
+      enterInterval: null,
+      leaveInterval: null,
     };
   },
   methods: {
     beforeEnter(whichElement) {
       console.log('BeforeEnter');
       console.log(whichElement);
+      whichElement.style.opacity = 0;
     },
-    enterActive(whichElement) {
+    enterActive(whichElement, done) {
+      // to prevent any strange behavior, because vue doesn't know about the code under what means
+      // so this enter event send second arg we receive it here , so we can by using it  tell
+      //  vue that we done here after executing our logic, (you don't need to use done when
+      // manipulating the transition with css )
       console.log('enterActive');
       console.log(whichElement);
+      let round = 1;
+      this.enterInterval = setInterval(() => {
+        whichElement.style.opacity = round * 0.01;
+        round++;
+        if (round > 100) {
+          clearInterval(this.enterInterval);
+          done();
+        }
+      }, 20);
     },
     afterEnter(whichElement) {
       console.log('afterEnter runs when the animation done ');
@@ -64,14 +102,32 @@ export default {
     beforeLeave(whichElement) {
       console.log('beforeLeave ');
       console.log(whichElement);
+      whichElement.style.opacity = 1;
     },
-    leave(whichElement) {
+    leave(whichElement, done) {
       console.log('leave');
       console.log(whichElement);
+      let round = 1;
+      this.leaveInterval = setInterval(() => {
+        whichElement.style.opacity = 1 - round * 0.01;
+        round++;
+        if (round > 100) {
+          clearInterval(this.leaveInterval);
+          done();
+        }
+      }, 20);
     },
     afterLeave(whichElement) {
       console.log('afterLeave');
       console.log(whichElement);
+    },
+    enterCanceled(whichElement) {
+      console.log(whichElement);
+      clearInterval(this.enterInterval);
+    },
+    leaveCanceled(whichElement) {
+      console.log(whichElement);
+      clearInterval(this.leaveInterval);
     },
     showUsers() {
       this.usersAreVisible = true;
@@ -147,28 +203,29 @@ button:active {
   /* transform: translateY(-30px);
   opacity: 0; */
 }
-.paragraph-enter-active {
-  /* transition: all 0.4s ease-out; */
-  animation: slide-fade 0.4s ease-in;
-}
-.paragraph-enter-to {
-  /* transform: translateY(0);
-  opacity: 1; */
-}
 
-.paragraph-leave-from {
-  /* transform: translateY(0);
+/* .paragraph-enter-active { */
+/* transition: all 0.4s ease-out; */
+/* animation: slide-fade 0.4s ease-in; */
+/* } */
+/* .paragraph-enter-to { */
+/* transform: translateY(0);
   opacity: 1; */
-}
+/* } */
 
-.paragraph-leave-active {
-  /* transition: all 0.4s ease-in; */
-  animation: slide-fade 0.4s ease-out;
-}
-.paragraph-leave-to {
-  /* transform: translateY(30px);
+/* .paragraph-leave-from { */
+/* transform: translateY(0);
+  opacity: 1; */
+/* } */
+
+/* .paragraph-leave-active { */
+/* transition: all 0.4s ease-in; */
+/* animation: slide-fade 0.4s ease-out; */
+/* } */
+/* .paragraph-leave-to { */
+/* transform: translateY(30px);
   opacity: 0; */
-}
+/* } */
 
 .fade-button-enter-from,
 .fade-button-leave-from {
