@@ -5,7 +5,9 @@
   </div>
 
   <div class="container">
-    <transition>
+    <transition name="paragraph">
+      <!-- or you can to override the entire names, not just the prefix   -->
+      <!-- <transition enter-to-class="other-name" enter-active-class="other-name"> -->
       <p v-if="paraIsVisible">This is only sometimes visible</p>
     </transition>
     <button @click="toggleParagraph">Toggle Paragraph</button>
@@ -93,29 +95,29 @@ button:active {
   /* forwards is for preventing the last stage of the animation from going back  */
 }
 
-.v-enter-from {
+.paragraph-enter-from {
   /* transform: translateY(-30px);
   opacity: 0; */
 }
-.v-enter-active {
+.paragraph-enter-active {
   /* transition: all 0.4s ease-out; */
   animation: slide-fade 0.4s ease-in;
 }
-.v-enter-to {
+.paragraph-enter-to {
   /* transform: translateY(0);
   opacity: 1; */
 }
 
-.v-leave-from {
+.paragraph-leave-from {
   /* transform: translateY(0);
   opacity: 1; */
 }
 
-.v-leave-active {
+.paragraph-leave-active {
   /* transition: all 0.4s ease-in; */
   animation: slide-fade 0.4s ease-out;
 }
-.v-leave-to {
+.paragraph-leave-to {
   /* transform: translateY(30px);
   opacity: 0; */
 }
