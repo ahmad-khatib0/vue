@@ -42,6 +42,11 @@ const router = createRouter({
     { path: '/:notFound(.*)', component: NotFound },
   ],
   linkActiveClass: 'active', // to replace the router-link-active with this
+  scrollBehavior(to, from, savedPosition) {
+    console.log(to, from, savedPosition);
+    if (savedPosition) return savedPosition;
+    return { left: 0, top: 0 };
+  },
 });
 
 const app = createApp(App);
