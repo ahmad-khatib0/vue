@@ -11,9 +11,21 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     // { path: '/', redirect: '/teams' }, or with alias
-    { path: '/teams', component: TeamsList, alias: '/' }, //but alias don't update path
+    {
+      name: 'teams',
+      path: '/teams',
+      component: TeamsList,
+      alias: '/',
+      children: [
+        {
+          name: 'team-members',
+          path: '/teams/:teamId',
+          component: TeamMembers,
+          props: true,
+        },
+      ],
+    }, //but alias don't update path
     { path: '/users', component: UsersList },
-    { path: '/teams/:teamId', component: TeamMembers, props: true },
     // it tells the view router that the dynamic parameters should be passed into
     //  this component as props rather than just on the $route property.
     { path: '/:notFound(.*)', component: NotFound },
