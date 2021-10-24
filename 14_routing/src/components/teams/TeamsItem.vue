@@ -12,7 +12,11 @@ export default {
   computed: {
     teamMembersList() {
       // return '/teams/' + this.id;
-      return { name: 'team-members', params: { teamId: this.id } };
+      return {
+        name: 'team-members',
+        params: { teamId: this.id },
+        query: { sort: 'asc' },
+      };
       //or navigating  programmatically if you want
       // this.$route.push({ name: 'team-members', params: { teamId: this.id } });
     },
