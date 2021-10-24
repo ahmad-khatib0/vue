@@ -10,12 +10,12 @@ specifiers:
   eslint: ^6.7.2
   eslint-plugin-vue: ^7.0.0-0
   vue: ^3.0.0
-  vue-router: ^4.0.12
+  vue-router: 4.0.0-beta.9
 
 dependencies:
   core-js: 3.18.3
   vue: 3.2.20
-  vue-router: 4.0.12_vue@3.2.20
+  vue-router: 4.0.0-beta.9_vue@3.2.20
 
 devDependencies:
   '@vue/cli-plugin-babel': 4.5.14_66747fff37ceac8ddfa70f211b184f64
@@ -1756,10 +1756,6 @@ packages:
     optionalDependencies:
       prettier: 1.19.1
     dev: true
-
-  /@vue/devtools-api/6.0.0-beta.19:
-    resolution: {integrity: sha512-ObzQhgkoVeoyKv+e8+tB/jQBL2smtk/NmC9OmFK8UqdDpoOdv/Kf9pyDWL+IFyM7qLD2C75rszJujvGSPSpGlw==}
-    dev: false
 
   /@vue/preload-webpack-plugin/1.1.2_502c618fc8a7d35df07e93275324a2d0:
     resolution: {integrity: sha512-LIZMuJk38pk9U9Ur4YzHjlIyMuxPlACdBIHH9/nGYVTsaGKOSnSuELiE8vS9wa+dJpIYspYUOqk+L1Q4pgHQHQ==}
@@ -8417,12 +8413,11 @@ packages:
     dev: true
     optional: true
 
-  /vue-router/4.0.12_vue@3.2.20:
-    resolution: {integrity: sha512-CPXvfqe+mZLB1kBWssssTiWg4EQERyqJZes7USiqfW9B5N2x+nHlnsM1D3b5CaJ6qgCvMmYJnz+G0iWjNCvXrg==}
+  /vue-router/4.0.0-beta.9_vue@3.2.20:
+    resolution: {integrity: sha512-k8AGMm3LCTqnsEuF37AD4kcZVMwtnFEzdjACgmIII/xbLnTj3+o5XyH/zREBZutgv5q2hzlLltMVglqDQYMd/A==}
     peerDependencies:
-      vue: ^3.0.0
+      vue: ^3.0.0-rc.9
     dependencies:
-      '@vue/devtools-api': 6.0.0-beta.19
       vue: 3.2.20
     dev: false
 
