@@ -12,6 +12,15 @@
     </transition>
     <button @click="toggleParagraph">Toggle Paragraph</button>
   </div>
+
+  <div class="container">
+    <transition name="fade-button" mode="out-in">
+      <!-- out-in animate the remove of button first , and then the addition of button second -->
+      <!-- in-out animate the addition of button first , and then the remove of button second -->
+      <button @click="showUsers" v-if="!usersAreVisible">Show Users</button>
+      <button @click="hideUsers" v-else>Hide Users</button>
+    </transition>
+  </div>
   <base-modal @close="hideDialog" :open="dialogIsVisible">
     <p>This is a test dialog!</p>
     <button @click="hideDialog">Close it!</button>
@@ -28,9 +37,16 @@ export default {
       dialogIsVisible: false,
       animatedBlock: false,
       paraIsVisible: false,
+      usersAreVisible: false,
     };
   },
   methods: {
+    showUsers() {
+      this.usersAreVisible = true;
+    },
+    hideUsers() {
+      this.usersAreVisible = false;
+    },
     showDialog() {
       this.dialogIsVisible = true;
     },
@@ -122,6 +138,20 @@ button:active {
   opacity: 0; */
 }
 
+.fade-button-enter-from,
+.fade-button-leave-from {
+  opacity: 0;
+}
+.fade-button-enter-active {
+  transition: opacity 0.4s ease-out;
+}
+.fade-button-leave-active {
+  transition: opacity 0.4s ease-in;
+}
+.fade-button-enter-to,
+.fade-button-leave-to {
+  opacity: 1;
+}
 @keyframes slide-fade {
   0% {
     transform: translateX(0) scale(1);
