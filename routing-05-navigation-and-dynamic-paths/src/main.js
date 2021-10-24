@@ -9,14 +9,15 @@ import TeamMembers from './components/teams/TeamMembers.vue';
 const router = createRouter({
   history: createWebHistory(),
   routes: [
-    { path: '/teams', component: TeamsList },
+    { path: '/teams', component: TeamsList }, // our-domain.com/teams => TeamsList
     { path: '/users', component: UsersList },
-    { path: '/teams/:teamId', component: TeamMembers },
+    { path: '/teams/:teamId', component: TeamMembers }
   ],
-  linkActiveClass: 'active', // to replace the router-link-active with this
+  linkActiveClass: 'active'
 });
 
 const app = createApp(App);
+
 app.use(router);
 
 app.mount('#app');
