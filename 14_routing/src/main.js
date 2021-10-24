@@ -16,6 +16,12 @@ const router = createRouter({
     {
       name: 'teams',
       path: '/teams',
+      meta: { needsAuth: true },
+      //you can access this meta field in all the places where the route object, the dollar
+      //sign route object is available. And that's the case inside of components and with
+      //that you could pass data into a component which is loaded for this route, but you can
+      //also use it in your navigation guards because there you also got access to the to and
+      //from route objects.
       components: {
         default: TeamsList,
         footer: TeamsFooter,
@@ -60,7 +66,13 @@ router.beforeEach(function (to, from, next) {
   console.log('Global beforeEach, run on each navigation');
   console.log(to, from);
   console.groupEnd();
-  next(); //or
+
+  if (to.meta.needsAuth) {
+    console.log('Needs auth!');
+    next();
+  } else next();
+
+  // next(); //or
   // next(false); //or
   // if (to.name === 'team-members') next();
   // else next({ name: 'team-members', params: { teamId: 't2' } }); //or
