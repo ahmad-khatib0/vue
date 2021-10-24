@@ -1,4 +1,10 @@
 <template>
+  <router-view v-slot="slotProps">
+    <transition name="fade-button" mode="out-in">
+      <component :is="slotProps.Component"></component>
+    </transition>
+  </router-view>
+  <!-- this strange looking syntax is what you need to animate routes  -->
   <div class="container">
     <users-list></users-list>
   </div>
@@ -246,6 +252,14 @@ button:active {
 .fade-button-leave-to {
   opacity: 1;
 }
+
+.route-enter-active {
+  animation: slide-fade 0.8s ease-out;
+}
+.route-leave-active {
+  animation: slide-fade 0.8s ease-in;
+}
+
 @keyframes slide-fade {
   0% {
     transform: translateX(0) scale(1);
