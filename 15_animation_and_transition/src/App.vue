@@ -5,7 +5,15 @@
   </div>
 
   <div class="container">
-    <transition name="paragraph">
+    <transition
+      name="paragraph"
+      @before-enter="beforeEnter"
+      @enter="enterActive"
+      @after-enter="afterEnter"
+      @before-leave="beforeLeave"
+      @leave="leave"
+      @after-leave="afterLeave"
+    >
       <!-- or you can to override the entire names, not just the prefix   -->
       <!-- <transition enter-to-class="other-name" enter-active-class="other-name"> -->
       <p v-if="paraIsVisible">This is only sometimes visible</p>
@@ -41,6 +49,30 @@ export default {
     };
   },
   methods: {
+    beforeEnter(whichElement) {
+      console.log('BeforeEnter');
+      console.log(whichElement);
+    },
+    enterActive(whichElement) {
+      console.log('enterActive');
+      console.log(whichElement);
+    },
+    afterEnter(whichElement) {
+      console.log('afterEnter runs when the animation done ');
+      console.log(whichElement);
+    },
+    beforeLeave(whichElement) {
+      console.log('beforeLeave ');
+      console.log(whichElement);
+    },
+    leave(whichElement) {
+      console.log('leave');
+      console.log(whichElement);
+    },
+    afterLeave(whichElement) {
+      console.log('afterLeave');
+      console.log(whichElement);
+    },
     showUsers() {
       this.usersAreVisible = true;
     },
@@ -143,7 +175,7 @@ button:active {
   opacity: 0;
 }
 .fade-button-enter-active {
-  transition: opacity 0.4s ease-out;
+  transition: opacity 5s ease-out;
 }
 .fade-button-leave-active {
   transition: opacity 0.4s ease-in;
