@@ -94,28 +94,30 @@ button:active {
 }
 
 .v-enter-from {
-  transform: translateY(-30px);
-  opacity: 0;
+  /* transform: translateY(-30px);
+  opacity: 0; */
 }
 .v-enter-active {
-  transition: all 0.4s ease-out;
+  /* transition: all 0.4s ease-out; */
+  animation: slide-fade 0.4s ease-in;
 }
 .v-enter-to {
-  transform: translateY(0);
-  opacity: 1;
+  /* transform: translateY(0);
+  opacity: 1; */
 }
 
 .v-leave-from {
-  transform: translateY(0);
-  opacity: 1;
+  /* transform: translateY(0);
+  opacity: 1; */
 }
 
 .v-leave-active {
-  transition: all 0.4s ease-in;
+  /* transition: all 0.4s ease-in; */
+  animation: slide-fade 0.4s ease-out;
 }
 .v-leave-to {
-  transform: translateY(30px);
-  opacity: 0;
+  /* transform: translateY(30px);
+  opacity: 0; */
 }
 
 @keyframes slide-fade {
