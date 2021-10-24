@@ -36,19 +36,41 @@ const router = createRouter({
         default: UsersList,
         footer: UsersFooter,
       },
+      beforeEnter: (_, _2, next) => {
+        console.log('this run on each time we hit the /users');
+        next();
+      },
     },
     // it tells the view router that the dynamic parameters should be passed into
     //  this component as props rather than just on the $route property.
     { path: '/:notFound(.*)', component: NotFound },
   ],
   linkActiveClass: 'active', // to replace the router-link-active with this
-  scrollBehavior(to, from, savedPosition) {
-    console.log(to, from, savedPosition);
+  scrollBehavior(_, _2, savedPosition) {
+    // which is basically an indicator that I have to take these arguments  in order to reach
+    //  the third one, but then I don't plan on using them (which prevent error of unused vars)
+    // console.log(to, from, savedPosition);
     if (savedPosition) return savedPosition;
     return { left: 0, top: 0 };
   },
 });
 
+router.beforeEach(function (to, from, next) {
+  console.group();
+  console.log('Global beforeEach, run on each navigation');
+  console.log(to, from);
+  console.groupEnd();
+  next(); //or
+  // next(false); //or
+  // if (to.name === 'team-members') next();
+  // else next({ name: 'team-members', params: { teamId: 't2' } }); //or
+});
+
+router.afterEach((to, from) => {
+  // could be useful, eg sending analytics data
+  console.log('Global afterEach , runs on leaving routes');
+  console.log(to, from);
+});
 const app = createApp(App);
 app.use(router);
 

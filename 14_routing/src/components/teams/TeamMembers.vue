@@ -44,7 +44,14 @@ export default {
   created() {
     // this.$route.path // /teams/t1
     this.loadTeamMembers(this.teamId);
-    console.log(this.$route.query);
+    // console.log(this.$route.query);
+  },
+  beforeRouteUpdate(to, from, next) {
+    console.log('TeamMembers comp beforeRouteUpdate');
+    console.log(to, from);
+    // this.loadTeamMembers(to.params.teamId);
+    next(); //this is an alternative for watch down , but it is less
+    // flexible, because it's not based on props instead on routing params
   },
   watch: {
     teamId(newId) {
