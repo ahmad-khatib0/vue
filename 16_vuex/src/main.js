@@ -21,6 +21,18 @@ const store = createStore({
   // the idea behind mutations , is when we wanna change the state directly in many places , eg if
   // we decide to edit this changing , we wanna go to all places and edit them , to be consistent
   // in all places , so in big projects this pattern would be a nightmare
+
+  getters: {
+    finalCounter(state) {
+      return state.counter * 3;
+    },
+    normalizeCounter(state, getters) {
+      const finalCounter = getters.finalCounter;
+      if (finalCounter < 0) return 0;
+      if (finalCounter > 100) return 100;
+      return finalCounter;
+    },
+  },
 });
 const app = createApp(App);
 
