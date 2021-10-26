@@ -10,8 +10,11 @@ export default {
       // this.$store.state.counter++; bad approach
       this.$store.commit('increment');
     },
+    // addTow() {
+    //   this.$store.commit('increment');
+    // },
     addTow() {
-      this.$store.commit('increment');
+      this.$store.dispatch('increment');
     },
   },
 };

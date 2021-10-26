@@ -21,7 +21,19 @@ const store = createStore({
   // the idea behind mutations , is when we wanna change the state directly in many places , eg if
   // we decide to edit this changing , we wanna go to all places and edit them , to be consistent
   // in all places , so in big projects this pattern would be a nightmare
+  // mutations doesn't allow async
 
+  actions: {
+    // so we use actions as middleware between components and  mutations , which allow async
+    increment(context) {
+      setTimeout(() => {
+        context.commit('increment');
+      }, 2000);
+    },
+    increase(context, payload) {
+      context.commit('increase', payload);
+    },
+  },
   getters: {
     finalCounter(state) {
       return state.counter * 3;
