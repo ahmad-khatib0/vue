@@ -7,6 +7,7 @@ const store = createStore({
   state() {
     return {
       counter: 0,
+      isLoggedIn: false,
     };
   },
   mutations: {
@@ -16,6 +17,10 @@ const store = createStore({
     increase(state, payload) {
       // payload can be anything , obj,string,num,....
       state.counter = state.counter + payload.value;
+    },
+
+    setAuth(state, payload) {
+      state.isLoggedIn = payload.isAuth;
     },
   },
   // the idea behind mutations , is when we wanna change the state directly in many places , eg if
@@ -33,6 +38,13 @@ const store = createStore({
     increase(context, payload) {
       context.commit('increase', payload);
     },
+
+    login(context) {
+      context.commit('setAuth', { isAuth: true });
+    },
+    logout(context) {
+      context.commit('setAuth', { isAuth: false });
+    },
   },
   getters: {
     finalCounter(state) {
@@ -43,6 +55,9 @@ const store = createStore({
       if (finalCounter < 0) return 0;
       if (finalCounter > 100) return 100;
       return finalCounter;
+    },
+    userIsAuthenticated(state) {
+      return state.isLoggedIn;
     },
   },
 });
