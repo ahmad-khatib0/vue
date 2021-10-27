@@ -33,13 +33,13 @@ export default {
       // this.$store.commit('increment');
       // this.$store.commit('increase', { value: 10 }); //or
       this.$store.commit({
-        type: 'increase',
+        type: 'counter/increase',
         value: 10,
       });
     },
     addWithActions() {
       this.$store.dispatch({
-        type: 'increase',
+        type: 'counter/increase',
         value: 10,
       });
     },

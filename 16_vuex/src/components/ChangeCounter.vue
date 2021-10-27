@@ -12,17 +12,17 @@ export default {
   methods: {
     addOne() {
       // this.$store.state.counter++; bad approach
-      this.$store.commit('increment');
+      this.$store.commit('counter/increment');
     },
     // addTow() {
     //   this.$store.commit('increment');
     // },
     addTow() {
-      this.$store.dispatch('increment');
+      this.$store.dispatch('counter/increment');
     },
 
-    ...mapActions(['increment', 'increase']), //or by renaming the actions:
-    ...mapActions({
+    ...mapActions('counter', ['increment', 'increase']), //or by renaming the actions:
+    ...mapActions('counter', {
       inc: 'increment',
       increasement: 'increase',
     }),

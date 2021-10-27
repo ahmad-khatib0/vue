@@ -4,6 +4,7 @@ import { createStore } from 'vuex';
 import App from './App.vue';
 
 const counterModule = {
+  namespaced: true, //
   state() {
     return {
       counter: 0,
@@ -14,6 +15,7 @@ const counterModule = {
       state.counter = state.counter + 2;
     },
     increase(state, payload) {
+      console.log(state); //because its locale state, will'll not see the isLoggedIn
       // payload can be anything , obj,string,num,....
       state.counter = state.counter + payload.value;
     },
@@ -33,6 +35,11 @@ const counterModule = {
     finalCounter(state) {
       return state.counter * 3;
     },
+    // anExample(state, getters, rootState, rootGetters) {
+    //   // here we can to reach out to main store by 3th and 4th args
+    //   console.log(state, getters, rootState, rootGetters);
+    //   return state.counter * 3;
+    // },
     normalizeCounter(state, getters) {
       const finalCounter = getters.finalCounter;
       if (finalCounter < 0) return 0;

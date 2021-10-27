@@ -12,7 +12,7 @@ export default {
     // return this.$store.getters.normalizeCounter;
     // },
     // use maagetters to retrieve the getters directly, instead of above,(define a method for it )
-    ...mapGetters(['finalCounter']),
+    ...mapGetters('counter', ['finalCounter']),
   },
 };
 </script>
