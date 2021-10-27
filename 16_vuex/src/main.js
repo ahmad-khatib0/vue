@@ -3,11 +3,10 @@ import { createStore } from 'vuex';
 
 import App from './App.vue';
 
-const store = createStore({
+const counterModule = {
   state() {
     return {
       counter: 0,
-      isLoggedIn: false,
     };
   },
   mutations: {
@@ -18,18 +17,9 @@ const store = createStore({
       // payload can be anything , obj,string,num,....
       state.counter = state.counter + payload.value;
     },
-
-    setAuth(state, payload) {
-      state.isLoggedIn = payload.isAuth;
-    },
   },
-  // the idea behind mutations , is when we wanna change the state directly in many places , eg if
-  // we decide to edit this changing , we wanna go to all places and edit them , to be consistent
-  // in all places , so in big projects this pattern would be a nightmare
-  // mutations doesn't allow async
 
   actions: {
-    // so we use actions as middleware between components and  mutations , which allow async
     increment(context) {
       setTimeout(() => {
         context.commit('increment');
@@ -37,13 +27,6 @@ const store = createStore({
     },
     increase(context, payload) {
       context.commit('increase', payload);
-    },
-
-    login(context) {
-      context.commit('setAuth', { isAuth: true });
-    },
-    logout(context) {
-      context.commit('setAuth', { isAuth: false });
     },
   },
   getters: {
@@ -56,6 +39,40 @@ const store = createStore({
       if (finalCounter > 100) return 100;
       return finalCounter;
     },
+  },
+};
+
+const store = createStore({
+  modules: {
+    counter: counterModule,
+  },
+  // to merge the above obj into the store
+  state() {
+    return {
+      isLoggedIn: false,
+    };
+  },
+  mutations: {
+    setAuth(state, payload) {
+      state.isLoggedIn = payload.isAuth;
+    },
+  },
+  // the idea behind mutations , is when we wanna change the state directly in many places , eg if
+  // we decide to edit this changing , we wanna go to all places and edit them , to be consistent
+  // in all places , so in big projects this pattern would be a nightmare
+  // mutations doesn't allow async
+
+  actions: {
+    // so we use actions as middleware between components and  mutations , which allow async
+
+    login(context) {
+      context.commit('setAuth', { isAuth: true });
+    },
+    logout(context) {
+      context.commit('setAuth', { isAuth: false });
+    },
+  },
+  getters: {
     userIsAuthenticated(state) {
       return state.isLoggedIn;
     },
