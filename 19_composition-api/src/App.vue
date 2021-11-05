@@ -7,12 +7,17 @@
     <h2>{{ user.name }}</h2>
     <h3>{{ user.age }}</h3>
     <button @click="setAge">Change Age</button>
+    <div>
+      <input type="text" placeholder="First Name  " @input="setFirstName" />
+      <input type="text" placeholder="Last Name  " @input="setLastName" />
+      <p>{{ uName }}</p>
+    </div>
   </section>
 </template>
 
 <script>
 // import { ref } from 'vue';
-import { reactive, ref, isRef, isReactive, toRefs } from 'vue';
+import { reactive, ref, isRef, isReactive, toRefs, computed } from 'vue';
 export default {
   setup() {
     // const UName = ref('Maximilian'); method
@@ -67,11 +72,30 @@ export default {
     function setNewAge() {
       user.age = 37;
     }
+
+    const firstName = ref('');
+    const lastName = ref('');
+
+    function setFirstName(event) {
+      firstName.value = event.target.value;
+    }
+
+    function setLastName(event) {
+      lastName.value = event.target.value;
+    }
+
+    const uName = computed(function () {
+      return firstName.value + ' ' + lastName.value;
+    });
+
     return {
       user,
       userName: userRefs.name,
       age: userRefs.age,
       setAge: setNewAge,
+      setFirstName,
+      setLastName,
+      uName,
     };
     // so now this eg => userName: userRefs.name, is valid , with the help of
     // toRefs ,instead of  exposing the entire object , so these properties are reactive
