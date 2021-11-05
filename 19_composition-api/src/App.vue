@@ -11,7 +11,7 @@
 
 <script>
 // import { ref } from 'vue';
-import { reactive } from 'vue';
+import { reactive, ref, isRef, isReactive, toRefs } from 'vue';
 export default {
   setup() {
     // const UName = ref('Maximilian'); method
@@ -36,17 +36,38 @@ export default {
     // }, 2000);
     // return { user };  //method 2 end
 
+    // const user = reactive({
+    //   //method 3, reactive works just with objects, while ref works with all
+    //   name: 'Maximilian ',
+    //   age: 33,
+    // });
+    // setTimeout(() => {
+    //   user.name = 'Ahmad';
+    //   user.age = 23;
+    // }, 2000);
+    // return { user }; //method 3 end
+
+    const UAge = ref(23);
     const user = reactive({
-      //method 3, reactive works just with objects, while ref works with all
       name: 'Maximilian ',
       age: 33,
     });
-    setTimeout(() => {
-      user.name = 'Ahmad';
-      user.age = 23;
-    }, 2000);
-    return { user }; //method 3 end
+    console.log(isRef(UAge.value)); //false
+    console.log(isReactive(user.name)); // false
+    // while , because the entire object is reactive:
+    console.log(isRef(UAge)); //  true
+    console.log(isReactive(user)); // true
+
+    //
+    //
+    const userRefs = toRefs(user); //converting it  to refs instead of reactive
+    console.log(isRef(userRefs.name)); //true, because now its ref
+    return { user, userName: userRefs.name, age: userRefs.age };
+    // so now this eg => userName: userRefs.name, is valid , with the help of
+    // toRefs ,instead of  exposing the entire object , so these properties are reactive
+    // and any changes happen to them will be reflect in the template
   },
+
   // data() {
   //   return {
   //     userName: 'Maximilian',
