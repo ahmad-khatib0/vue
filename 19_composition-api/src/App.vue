@@ -6,6 +6,7 @@
     <h3>{{ user.age }}</h3>  method 2 -->
     <h2>{{ user.name }}</h2>
     <h3>{{ user.age }}</h3>
+    <button @click="setAge">Change Age</button>
   </section>
 </template>
 
@@ -62,7 +63,16 @@ export default {
     //
     const userRefs = toRefs(user); //converting it  to refs instead of reactive
     console.log(isRef(userRefs.name)); //true, because now its ref
-    return { user, userName: userRefs.name, age: userRefs.age };
+
+    function setNewAge() {
+      user.age = 37;
+    }
+    return {
+      user,
+      userName: userRefs.name,
+      age: userRefs.age,
+      setAge: setNewAge,
+    };
     // so now this eg => userName: userRefs.name, is valid , with the help of
     // toRefs ,instead of  exposing the entire object , so these properties are reactive
     // and any changes happen to them will be reflect in the template
