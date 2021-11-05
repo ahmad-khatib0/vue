@@ -8,16 +8,20 @@
     <h3>{{ user.age }}</h3>
     <button @click="setAge">Change Age</button>
     <div>
-      <input type="text" placeholder="First Name  " @input="setFirstName" />
-      <input type="text" placeholder="Last Name  " @input="setLastName" />
-      <p>{{ uName }}</p>
+      <!-- <input type="text" placeholder="First Name  " @input="setFirstName" /> -->
+      <!-- <input type="text" placeholder="Last Name  " @input="setLastName" /> -->
+      <!-- <p>{{ uName }}</p> -->
+      <input type="text" placeholder="First Name  " v-model="firstName" />
+      <input type="text" placeholder="Last Name  " v-model="lastName" />
+      <p>{{ firstName }} {{ lastName }}</p>
+      <p>{{ age }}</p>
     </div>
   </section>
 </template>
 
 <script>
 // import { ref } from 'vue';
-import { reactive, ref, isRef, isReactive, toRefs, computed } from 'vue';
+import { reactive, ref, isRef, isReactive, toRefs, computed, watch } from 'vue';
 export default {
   setup() {
     // const UName = ref('Maximilian'); method
@@ -70,7 +74,7 @@ export default {
     console.log(isRef(userRefs.name)); //true, because now its ref
 
     function setNewAge() {
-      user.age = 37;
+      userAge.value = 37;
     }
 
     const firstName = ref('');
@@ -88,6 +92,19 @@ export default {
       return firstName.value + ' ' + lastName.value;
     });
 
+    const userAge = ref(33);
+
+    watch(userAge, function (newValue, oldValue) {
+      console.log('old value ' + oldValue);
+      console.log('new value ' + newValue);
+    });
+    watch([userAge, uName], function (newValues, oldValues) {
+      console.log('old value ' + oldValues[0]);
+      console.log('new value ' + newValues[0]);
+      console.log('old value ' + oldValues[1]);
+      console.log('new value ' + newValues[1]);
+    });
+
     return {
       user,
       userName: userRefs.name,
@@ -96,6 +113,9 @@ export default {
       setFirstName,
       setLastName,
       uName,
+      firstName,
+      lastName,
+      userAge,
     };
     // so now this eg => userName: userRefs.name, is valid , with the help of
     // toRefs ,instead of  exposing the entire object , so these properties are reactive
