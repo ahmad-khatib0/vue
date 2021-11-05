@@ -1,3 +1,4 @@
+// import { createApp, defineAsyncComponent } from 'vue';
 import { createApp } from 'vue';
 
 import router from './router.js';
@@ -7,9 +8,15 @@ import BaseCard from './components/ui/BaseCard.vue';
 import BaseButton from './components/ui/BaseButton.vue';
 import BaseBadge from './components/ui/BaseBadge.vue';
 import BaseSpinner from './components/ui/BaseSpinner.vue';
-import BaseDialog from './components/ui/BaseDialog.vue';
+// import BaseDialog from './components/ui/BaseDialog.vue';
 
-const app = createApp(App)
+// const BaseDialog = defineAsyncComponent(() =>
+//   import('./components/ui/BaseDialog.vue')
+// );
+// so now this component is gonna be executed or downloaded from the user when it needed just,
+
+const BaseDialog = () => import('./components/ui/BaseDialog.vue');
+const app = createApp(App);
 
 app.use(router);
 app.use(store);
