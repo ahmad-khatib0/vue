@@ -2,13 +2,13 @@
   <section>
     <div class="container">
       <h2>{{ userName }}</h2>
-      <!-- <h3>{{ age }}</h3> -->
+      <h3>{{ age }}</h3>
     </div>
   </section>
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, inject } from 'vue';
 export default {
   props: ['firstName', 'lastName'],
 
@@ -19,7 +19,9 @@ export default {
 
     console.log(context);
     // context.emit('save-num' ,1 ) // = this.$emit('save-num' , 1 )
-    return { userName: uName };
+
+    const age = inject('userAge');
+    return { userName: uName, age };
   },
   // computed: {
   //   userName() {

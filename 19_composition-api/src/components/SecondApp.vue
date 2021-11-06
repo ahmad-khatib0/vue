@@ -6,6 +6,10 @@
       <input type="text" placeholder="Last Name" ref="lastNameInput" />
       <button @click="setLastName">Set Last Name</button>
     </div>
+    <div>
+      <p>{{ age }}</p>
+      <button @click="setAge">Set age</button>
+    </div>
   </section>
   <section>
     <div class="container">
@@ -15,7 +19,7 @@
 </template>
 
 <script>
-import { ref, computed } from 'vue';
+import { ref, computed, provide } from 'vue';
 import UserData from './UserData.vue';
 
 export default {
@@ -24,7 +28,7 @@ export default {
     const firstName = ref('');
     const lastName = ref('');
     const lastNameInput = ref(null);
-
+    const uAge = ref(24);
     const uName = computed(function () {
       return firstName.value + ' ' + lastName.value;
     });
@@ -33,12 +37,19 @@ export default {
       lastName.value = lastNameInput.value.value;
     }
 
+    function setAge() {
+      uAge.value = 44;
+    }
+
+    provide('userAge', uAge);
     return {
       userName: uName,
       firstName,
       lastName,
       lastNameInput,
       setLastName,
+      age: uAge,
+      setAge,
     };
   },
 };
