@@ -15,6 +15,7 @@
       <input type="text" placeholder="Last Name  " v-model="lastName" />
       <p>{{ firstName }} {{ lastName }}</p>
       <p>{{ age }}</p>
+      <second-app></second-app>
     </div>
   </section>
 </template>
@@ -22,7 +23,9 @@
 <script>
 // import { ref } from 'vue';
 import { reactive, ref, isRef, isReactive, toRefs, computed, watch } from 'vue';
+import SecondApp from './components/SecondApp.vue';
 export default {
+  components: { SecondApp },
   setup() {
     // const UName = ref('Maximilian'); method
     // const userAge = ref(44);
