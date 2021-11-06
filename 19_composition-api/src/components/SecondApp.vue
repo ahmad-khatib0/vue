@@ -7,12 +7,19 @@
       <button @click="setLastName">Set Last Name</button>
     </div>
   </section>
+  <section>
+    <div class="container">
+      <user-data :first-name="firstName" :last-name="lastName"></user-data>
+    </div>
+  </section>
 </template>
 
 <script>
 import { ref, computed } from 'vue';
+import UserData from './UserData.vue';
 
 export default {
+  components: { UserData },
   setup() {
     const firstName = ref('');
     const lastName = ref('');
@@ -29,6 +36,7 @@ export default {
     return {
       userName: uName,
       firstName,
+      lastName,
       lastNameInput,
       setLastName,
     };
